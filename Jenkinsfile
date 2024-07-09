@@ -1,27 +1,27 @@
-pipeline{
+pipeline {
     agent any
     environment {
         PATH = "$PATH:/usr/share/maven/bin"
     }
-    stages{
-       stage('GetCode'){
-            steps{
-                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/nimbuswiztech/maven_webapp.git'
+    stages {
+        stage('Get Code') {
+            steps {
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/SandhyaAnpat/maven_webapp.git'
             }
-         }        
-       stage('Build'){
-            steps{
+        }
+        stage('Build') {
+            steps {
                 sh 'mvn clean package'
             }
         }
-       stage('deploy'){
-            steps{
-                sshagent(['Tomcat-demo']) {
-                    sh "scp -o StrictHostKeyChecking=no target/demo.war ubuntu@54.90.214.50:/var/lib/tomcat9/webapps"
-
+        stage('Deploy') {
+            steps {
+                script {
+                    sshagent(credentials: ['tomcat-deploy']) {
+                        sh "scp -o StrictHostKeyChecking=no target/hello.war ubuntu@54.83.115.85:/opt/tomcat/webapps"
+                    }
                 }
             }
         }
-       
     }
 }
