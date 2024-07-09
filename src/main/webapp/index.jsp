@@ -10,7 +10,7 @@
   <%
     } else {
   %>
-      <h2>hi This is tomcat server..Hi ... </h2><p>(<%= num %>)</p>
+      <h2>git webhook ... </h2><p>(<%= num %>)</p>
   <%
     }
   %>
